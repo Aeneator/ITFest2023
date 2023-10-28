@@ -16,7 +16,7 @@
     padding: 20px 0;
     margin: auto;
     box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
-    overflow:visible;
+    overflow: hidden;
 }
 .btn{
     background: red;
@@ -66,7 +66,7 @@ form .btn:hover{
     left: -400px;
 }
 #RegForm{
-    left: +400px;
+    left: 0px;
 }
 #Indicator{
     width: 70px;
@@ -76,11 +76,6 @@ form .btn:hover{
     margin-top: 8px;
     transform: translateX(33px);
     transition: transform 0.5s;
-}
-
-a1{
-    color:red;
-    text-decoration: underline;
 }
 
 a{
