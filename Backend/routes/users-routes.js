@@ -1,5 +1,5 @@
 const express = require("express");
-const { body, query } = require("express-validator");
+//const { body, query } = require("express-validator");
 
 const {
   createUser,
@@ -9,27 +9,9 @@ const checkAuth = require("../middlewares/check-auth");
 
 const router = express.Router();
 
-router.post(
-  "/",
-  body("email").normalizeEmail().isEmail().withMessage("Email is not valid"),
-  body("password")
-    .trim()
-    .notEmpty()
-    .withMessage("A password is required")
-    .escape(),
-  createUser
-);
+router.post("/", createUser);
 
-router.post(
-  "/authenticate",
-  body("email").trim().notEmpty().withMessage("An email is required").escape(),
-  body("password")
-    .trim()
-    .notEmpty()
-    .withMessage("A password is required")
-    .escape(),
-  authenticate
-);
+router.post("/authenticate", authenticate);
 
 router.use(checkAuth);
 

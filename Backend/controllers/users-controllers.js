@@ -7,12 +7,12 @@ const HttpError = require("../models/http-error");
 
 exports.createUser = async (req, res, next) => {
   const { username, email, password } = req.body;
-  const result = validationResult(req);
+  //const result = validationResult(req);
 
   try {
-    if (!result.isEmpty()) {
+    /* if (!result.isEmpty()) {
       throw new HttpError(result.array({ onlyFirstError: true })[0].msg, 400);
-    }
+    } */
 
     const alreadyExistingUser = await User.findOne({
       email,
@@ -32,7 +32,7 @@ exports.createUser = async (req, res, next) => {
     await createdUser.save();
 
     const token = jwt.sign(
-      { user: { id: createdUser.id, username } },
+      { user: { id: createdUser.id, username, email } },
       "super_secret_don't_share",
       {
         expiresIn: "1h",
@@ -41,7 +41,7 @@ exports.createUser = async (req, res, next) => {
 
     res.status(201).json({
       token,
-      user: { id: createdUser.id, username },
+      user: { id: createdUser.id, username, email },
     });
   } catch (error) {
     next(error);
@@ -51,7 +51,7 @@ exports.createUser = async (req, res, next) => {
 exports.authenticate = async (req, res, next) => {
   const result = validationResult(req);
 
-  const { username, password, pushToken } = req.body;
+  const { username, password } = req.body;
 
   try {
     if (!result.isEmpty()) {
