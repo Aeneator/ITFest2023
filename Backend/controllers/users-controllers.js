@@ -6,7 +6,7 @@ const User = require("../models/user");
 const HttpError = require("../models/http-error");
 
 exports.createUser = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
   //const result = validationResult(req);
 
   try {
@@ -16,8 +16,7 @@ exports.createUser = async (req, res, next) => {
 
     const alreadyExistingUser = await User.findOne({
       email,
-    }).exec(); // multi index, find the better option, udemy
-
+    }).exec();
     if (alreadyExistingUser) {
       throw new HttpError("Already existing user", 409);
     }
@@ -26,13 +25,14 @@ exports.createUser = async (req, res, next) => {
 
     const createdUser = new User({
       username,
+      email,
       password: hashedPassword,
     });
 
     await createdUser.save();
 
     const token = jwt.sign(
-      { user: { id: createdUser.id, username } },
+      { user: { id: createdUser.id, username, email } },
       "super_secret_don't_share",
       {
         expiresIn: "1h",
@@ -41,7 +41,7 @@ exports.createUser = async (req, res, next) => {
 
     res.status(201).json({
       token,
-      user: { id: createdUser.id, email },
+      user: { id: createdUser.id, username, email },
     });
   } catch (error) {
     next(error);
@@ -49,14 +49,14 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.authenticate = async (req, res, next) => {
-  //const result = validationResult(req);
+  const result = validationResult(req);
 
-  const { username, password, pushToken } = req.body;
+  const { username, password } = req.body;
 
   try {
-    /* if (!result.isEmpty()) {
+    if (!result.isEmpty()) {
       throw new HttpError(result.array({ onlyFirstError: true })[0].msg, 400);
-    } */
+    }
 
     const existingUser = await User.findOne({
       email,
