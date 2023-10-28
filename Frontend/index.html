@@ -20,14 +20,15 @@
                         </div>
                         <form id="LoginForm">
                             <input type="text" placeholder="Email:" id="emailLogin">
-                            <input type="password" placeholder="Parola:" id="parolaLogin">
-                            <button type="submit" class="btn">Login</button>
-                            <a href="">Am uitat parola</a>
+                            <input type="password" placeholder="Password:" id="parolaLogin">
+                            <button type="button" class="btn" onclick="loginEvent()">Login</button>
+                            <a href="">I forgot my password<br></a>
+                            <a1 id="invalid"></a1>
                         </form>
                         <form id="RegisterForm">
                             <input type="text" placeholder="Username:" id="usernameRegister">
                             <input type="text" placeholder="Email:" id="emailRegister">
-                            <input type="password" placeholder="Parola:" id="parolaRegister">
+                            <input type="password" placeholder="Password:" id="parolaRegister">
                             <button type="button" class="btn" onclick="savePlaceholders()">Register</button>
                         </form>
                     </div>
@@ -67,23 +68,74 @@
             var placeholders = {
                 username: usernamePlaceholder,
                 email: emailPlaceholder,
-                parola: parolaPlaceholder
+                password: parolaPlaceholder
             };
+            console.log(placeholders);
             var placeholdersJSON = JSON.stringify(placeholders);
+            console.log(placeholdersJSON);
             const sendRequest = async () => {
             console.log("In functie");
                 try {
-                    const response = await fetch("http://192.168.0.198:3000");
+                    /* const response = await fetch("http://192.168.0.198:3000/api/users", {
+                        method:"POST",
+                        headers:{
+                            "Content-Type": "application/json"
+                        },
+                        body: placeholdersJSON
+                    }); */
+                    const response = await fetch("http://192.168.0.198:3000/api/users/", {
+                        method:"POST",
+                        headers:{
+                            "Content-Type": "application/json"
+                        },
+                        body: placeholdersJSON
+                    });
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     const userData = await response.json();
                     console.log(userData);
+                    login();
                 } catch (err) {
                     console.error("Fetch Error:", err.message);
                 }
             }
             sendRequest();                   
+        }
+        function loginEvent(){
+            var emailPlaceholder = document.getElementById("emailLogin").value;
+            var parolaPlaceholder = document.getElementById("parolaLogin").value;
+
+            var placeholders = {
+                email: emailPlaceholder,
+                password: parolaPlaceholder
+            };
+            console.log(placeholders);
+            var placeholdersJSON = JSON.stringify(placeholders);
+            console.log(placeholdersJSON);
+            const sendRequest = async () => {
+            console.log("In functie");
+                try {
+                    const response = await fetch("http://192.168.0.198:3000/api/users/authenticate", {
+                        method:"POST",
+                        headers:{
+                            "Content-Type": "application/json"
+                        },
+                        body: placeholdersJSON
+                    });
+                    if (!response.ok) {
+                        throw new Error(response.message);
+                    }
+                    const userData = await response.json();
+                    console.log(userData);
+                    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+                } catch (err) {
+                    document.getElementById("invalid").innerHTML = "Invalid credentials!";
+                    console.error("Fetch Error:", err.message);
+                }
+            }
+            sendRequest(); 
+
         }
     </script>
 </body>
