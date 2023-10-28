@@ -19,16 +19,16 @@
                             <hr id="Indicator">
                         </div>
                         <form id="LoginForm">
-                            <input type="text" placeholder="Email:">
-                            <input type="password" placeholder="Parola:">
+                            <input type="text" placeholder="Email:" id="emailLogin">
+                            <input type="password" placeholder="Parola:" id="parolaLogin">
                             <button type="submit" class="btn">Login</button>
                             <a href="">Am uitat parola</a>
                         </form>
                         <form id="RegisterForm">
-                            <input type="text" placeholder="Username:">
-                            <input type="text" placeholder="Email:">
-                            <input type="password" placeholder="Parola:">
-                            <button type="submit" class="btn">Register</button>
+                            <input type="text" placeholder="Username:" id="usernameRegister">
+                            <input type="text" placeholder="Email:" id="emailRegister">
+                            <input type="password" placeholder="Parola:" id="parolaRegister">
+                            <button type="button" class="btn" onclick="savePlaceholders()">Register</button>
                         </form>
                     </div>
 
@@ -49,20 +49,41 @@
             RegisterForm.style.transform = "translateX(0px)";
             LoginForm.style.transform = "translateX(0px)";
             Indicator.style.transform = "translateX(33px)";
-
-            var obj = {
-                table: []
-            };
-            obj.table.push({username:"lalala", email:"lalala@", parola:"uhuhu"});
-            var json = JSON.stringify(obj);
-            var fs = require('fs');
-            fs.writeFile('myjsonFile.json', json, 'utf8', callback);
+          
             
         }
         function login(){
             RegisterForm.style.transform = "translateX(400px)";
             LoginForm.style.transform = "translateX(400px)";
             Indicator.style.transform = "translateX(-36px)";
+        }
+        function savePlaceholders() {
+            // Get the values of the placeholders
+            var usernamePlaceholder = document.getElementById("usernameRegister").value;
+            var emailPlaceholder = document.getElementById("emailRegister").value;
+            var parolaPlaceholder = document.getElementById("parolaRegister").value;
+
+            // You can store these values in variables or an object, as needed
+            var placeholders = {
+                username: usernamePlaceholder,
+                email: emailPlaceholder,
+                parola: parolaPlaceholder
+            };
+            var placeholdersJSON = JSON.stringify(placeholders);
+            const sendRequest = async () => {
+            console.log("In functie");
+                try {
+                    const response = await fetch("http://192.168.0.198:3000");
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const userData = await response.json();
+                    console.log(userData);
+                } catch (err) {
+                    console.error("Fetch Error:", err.message);
+                }
+            }
+            sendRequest();                   
         }
     </script>
 </body>
