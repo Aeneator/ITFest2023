@@ -7,17 +7,16 @@ const HttpError = require("../models/http-error");
 
 exports.createUser = async (req, res, next) => {
   const { email, password } = req.body;
-  //const result = validationResult(req);
+  const result = validationResult(req);
 
   try {
-    /* if (!result.isEmpty()) {
+    if (!result.isEmpty()) {
       throw new HttpError(result.array({ onlyFirstError: true })[0].msg, 400);
-    } */
+    }
 
     const alreadyExistingUser = await User.findOne({
       email,
-    }).exec(); // multi index, find the better option, udemy
-
+    }).exec();
     if (alreadyExistingUser) {
       throw new HttpError("Already existing user", 409);
     }
@@ -49,14 +48,14 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.authenticate = async (req, res, next) => {
-  //const result = validationResult(req);
+  const result = validationResult(req);
 
   const { username, password, pushToken } = req.body;
 
   try {
-    /* if (!result.isEmpty()) {
+    if (!result.isEmpty()) {
       throw new HttpError(result.array({ onlyFirstError: true })[0].msg, 400);
-    } */
+    }
 
     const existingUser = await User.findOne({
       email,

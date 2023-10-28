@@ -3,9 +3,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const clothSchema = new Schema({
+  imageID: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
-    rerquired: true,
+    required: true,
   },
   category: {
     type: String,
