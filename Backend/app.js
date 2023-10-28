@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+const HttpError = require("./models/http-error");
+
 const app = express();
 const port = 3000;
 
@@ -8,9 +10,14 @@ app.use(cors());
 
 app.use(express.json());
 
-const usersRoutes = require("./routes/users-routes");
+app.get("/", (req, res, next) => {
+  res.json({ message: "Successful" });
+});
 
-app.use("api/users", usersRoutes);
+app.use((req, res, next) => {
+  const error = new HttpError("Route not found", 404);
+  next(error);
+});
 
 app.use((error, req, res, next) => {
   if (res.headersSent) {
