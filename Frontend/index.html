@@ -63,6 +63,7 @@
                             <input type="text" placeholder="Email:" id="emailRegister">
                             <input type="password" placeholder="Password:" id="parolaRegister">
                             <button type="button" class="btn" onclick="savePlaceholders()">Register</button>
+                            <a1 id="invalid1"></a1>
                         </form>
                     </div>
 
@@ -123,13 +124,15 @@
                         },
                         body: placeholdersJSON
                     });
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
+
                     const userData = await response.json();
-                    console.log(userData);
+                    if (!response.ok) {
+                        throw new Error(userData.message);
+                    }
+                    
                     login();
                 } catch (err) {
+                    document.getElementById("invalid1").innerHTML = err.message;
                     console.error("Fetch Error:", err.message);
                 }
             }
@@ -156,14 +159,15 @@
                         },
                         body: placeholdersJSON
                     });
-                    if (!response.ok) {
-                        throw new Error(response.message);
-                    }
+
                     const userData = await response.json();
-                    console.log(userData);
+                    if (!response.ok) {
+                        throw new Error(userData.message);
+                    }
+                   
                     window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
                 } catch (err) {
-                    document.getElementById("invalid").innerHTML = "Invalid credentials!";
+                    document.getElementById("invalid").innerHTML = err.message;
                     console.error("Fetch Error:", err.message);
                 }
             }
