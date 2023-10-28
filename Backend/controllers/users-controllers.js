@@ -6,7 +6,7 @@ const User = require("../models/user");
 const HttpError = require("../models/http-error");
 
 exports.createUser = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
   const result = validationResult(req);
 
   try {
@@ -25,6 +25,7 @@ exports.createUser = async (req, res, next) => {
 
     const createdUser = new User({
       username,
+      email,
       password: hashedPassword,
     });
 
@@ -40,7 +41,7 @@ exports.createUser = async (req, res, next) => {
 
     res.status(201).json({
       token,
-      user: { id: createdUser.id, email },
+      user: { id: createdUser.id, username },
     });
   } catch (error) {
     next(error);

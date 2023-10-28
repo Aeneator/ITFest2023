@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
 
 const usersRoutes = require("./routes/users-routes");
@@ -29,3 +30,16 @@ app.use((error, req, res, next) => {
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
+mongoose
+  .connect(
+    "mongodb+srv://david-moise_08:Q12NKgyRGchK6pFK@cluster0.bqkgy7a.mongodb.net/itFest?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
