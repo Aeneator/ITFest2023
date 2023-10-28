@@ -90,24 +90,24 @@
                     </div>
                 </div>
                 <div class="contactForm">
-                    <form>
-                        <h2>Send Message</h2>
-                        <div class="inputBox">
-                            <input type="text" name="" required="required">
-                            <span>Full Name</span>
-                        </div>
-                        <div class="inputBox">
-                            <input type="text" name="" required="required">
-                            <span>Email</span>
-                        </div>
-                        <div class="inputBox">
-                            <textarea required="required"></textarea>
-                            <span>Type your Message...</span>
-                        </div>
-                        <div class="inputBox">
-                            <input type="submit" name="" required="Send">
-                        </div>
-                    </form>
+                  <form action="https://formspree.io/f/moqorbkk" method="POST">
+                    <h2>Send Message</h2>
+                    <div class="inputBox">
+                        <input type="text" name="full_name" required="required">
+                        <span>Full Name</span>
+                    </div>
+                    <div class="inputBox">
+                        <input type="email" name="_replyto" required="required">
+                        <span>Email</span>
+                    </div>
+                    <div class="inputBox">
+                        <textarea name="message" required="required"></textarea>
+                        <span>Type your Message...</span>
+                    </div>
+                    <div class="inputBox">
+                        <input type="submit" value="Send">
+                    </div>
+                </form>
 
                 </div>
             </div>
