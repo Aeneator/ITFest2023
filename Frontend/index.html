@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+    <body>
+        <div class = "account-page">
+            <div class= "container">
+            <div class = "row">
+                <div class ="col-2">
+                    <div class="form-container">
+                        <div class="form-btn">
+                            <span onclick="login()">Login</span>
+                            <span onclick="register()">Register</span>
+                            <hr id="Indicator">
+                        </div>
+                        <form id="LoginForm">
+                            <input type="text" placeholder="Email:">
+                            <input type="password" placeholder="Parola:">
+                            <button type="submit" class="btn">Login</button>
+                            <a href="">Am uitat parola</a>
+                        </form>
+                        <form id="RegisterForm">
+                            <input type="text" placeholder="Username:">
+                            <input type="text" placeholder="Email:">
+                            <input type="password" placeholder="Parola:">
+                            <button type="submit" class="btn">Register</button>
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!------toggle login/register----->
+    <script>
+        var LoginForm = document.getElementById("LoginForm");
+        var RegisterForm = document.getElementById("RegisterForm");
+        var Indicator = document.getElementById("Indicator");
+
+        function register(){
+            RegisterForm.style.transform = "translateX(0px)";
+            LoginForm.style.transform = "translateX(0px)";
+            Indicator.style.transform = "translateX(33px)";
+
+            var obj = {
+                table: []
+            };
+            obj.table.push({username:"lalala", email:"lalala@", parola:"uhuhu"});
+            var json = JSON.stringify(obj);
+            var fs = require('fs');
+            fs.writeFile('myjsonFile.json', json, 'utf8', callback);
+            
+        }
+        function login(){
+            RegisterForm.style.transform = "translateX(400px)";
+            LoginForm.style.transform = "translateX(400px)";
+            Indicator.style.transform = "translateX(-36px)";
+        }
+    </script>
+</body>
+</html>
