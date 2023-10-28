@@ -3,23 +3,23 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const clothSchema = new Schema({
-  denumire: {
+  name: {
     type: String,
     rerquired: true,
   },
-  categorie: {
+  category: {
     type: String,
     required: true,
   },
-  sex: {
+  gender: {
     type: String,
     required: true,
   },
-  marime: {
+  size: {
     type: String,
     required: true,
   },
-  copii: {
+  kids: {
     type: Boolean,
     required: true,
     default: false,
