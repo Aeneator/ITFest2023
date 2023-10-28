@@ -1,26 +1,37 @@
-.navbar{
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
     display: flex;
     align-items: center;
     padding: 20px;
     padding-left: 40px;
     padding-right: 40px;
-}
-nav{
+  }
+  
+  nav {
     flex: 1;
     text-align: right;
-}
-nav ul{
+  }
+  
+  nav ul {
     display: inline-block;
     list-style-type: none;
-}
-nav ul li{
+  }
+  
+  nav ul li {
     display: inline-block;
     margin-right: 20px;
-}
-a{
+  }
+  
+  a {
     text-decoration: none;
     color: #555;
-}
-p{
+  }
+  
+  p {
     color: #555;
-}
+  }
