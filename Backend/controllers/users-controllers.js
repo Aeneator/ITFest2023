@@ -6,16 +6,16 @@ const User = require("../models/user");
 const HttpError = require("../models/http-error");
 
 exports.createUser = async (req, res, next) => {
-  const { username, password, pushToken } = req.body;
-  const result = validationResult(req);
+  const { email, password } = req.body;
+  //const result = validationResult(req);
 
   try {
-    if (!result.isEmpty()) {
+    /* if (!result.isEmpty()) {
       throw new HttpError(result.array({ onlyFirstError: true })[0].msg, 400);
-    }
+    } */
 
     const alreadyExistingUser = await User.findOne({
-      username,
+      email,
     }).exec(); // multi index, find the better option, udemy
 
     if (alreadyExistingUser) {
@@ -27,7 +27,6 @@ exports.createUser = async (req, res, next) => {
     const createdUser = new User({
       username,
       password: hashedPassword,
-      pushToken,
     });
 
     await createdUser.save();
@@ -42,7 +41,7 @@ exports.createUser = async (req, res, next) => {
 
     res.status(201).json({
       token,
-      user: { id: createdUser.id, username },
+      user: { id: createdUser.id, email },
     });
   } catch (error) {
     next(error);
@@ -50,17 +49,17 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.authenticate = async (req, res, next) => {
-  const result = validationResult(req);
+  //const result = validationResult(req);
 
   const { username, password, pushToken } = req.body;
 
   try {
-    if (!result.isEmpty()) {
+    /* if (!result.isEmpty()) {
       throw new HttpError(result.array({ onlyFirstError: true })[0].msg, 400);
-    }
+    } */
 
     const existingUser = await User.findOne({
-      username,
+      email,
     }).exec();
 
     if (!existingUser) {
@@ -80,20 +79,20 @@ exports.authenticate = async (req, res, next) => {
     await existingUser.save();
 
     const token = jwt.sign(
-      { user: { id: existingUser.id, username } },
+      { user: { id: existingUser.id, email } },
       "super_secret_don't_share",
       {
         expiresIn: "1h",
       }
     );
 
-    res.status(201).json({ token, user: { id: existingUser.id, username } });
+    res.status(201).json({ token, user: { id: existingUser.id, email } });
   } catch (error) {
     next(error);
   }
 };
 
-exports.getUsers = async (req, res, next) => {
+/* exports.getUsers = async (req, res, next) => {
   const { username } = req.query;
 
   try {
@@ -109,4 +108,4 @@ exports.getUsers = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+}; */
