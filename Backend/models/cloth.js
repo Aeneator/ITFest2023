@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const clothSchema = new Schema({
-  imageID: {
+  imageName:{
     type: String,
     required: true,
+    default: "",
   },
   name: {
     type: String,
