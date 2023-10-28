@@ -7,9 +7,11 @@ const express = require("express");
 } = require("../controllers/users-controllers"); */
 //const checkAuth = require("../middlewares/check-auth");
 
+const { getClothesByCategory } = require("../controllers/clothes-controllers");
+
 const router = express.Router();
 
-router.get("/");
+router.get("/", getClothesByCategory);
 
 //router.use(checkAuth);
 

@@ -49,14 +49,14 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.authenticate = async (req, res, next) => {
-  const result = validationResult(req);
+  //const result = validationResult(req);
 
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    if (!result.isEmpty()) {
+    /* if (!result.isEmpty()) {
       throw new HttpError(result.array({ onlyFirstError: true })[0].msg, 400);
-    }
+    } */
 
     const existingUser = await User.findOne({
       email,
@@ -75,7 +75,6 @@ exports.authenticate = async (req, res, next) => {
       throw new HttpError("Invalid credentials", 401);
     }
 
-    existingUser.pushToken = pushToken;
     await existingUser.save();
 
     const token = jwt.sign(
@@ -86,7 +85,12 @@ exports.authenticate = async (req, res, next) => {
       }
     );
 
-    res.status(201).json({ token, user: { id: existingUser.id, email } });
+    res
+      .status(201)
+      .json({
+        token,
+        user: { id: existingUser.id, username: existingUser.username, email },
+      });
   } catch (error) {
     next(error);
   }
