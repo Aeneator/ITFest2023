@@ -2,14 +2,25 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" type="text/css" href="navBar.css">
     <title>Login Page</title>
     <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    
 </head>
-
+</div>
     <body>
         <div class = "account-page">
             <div class= "container">
+              <div class="navbar">
+                <div class="logo">
+                  <img src="logo.svg" width="100px">
+                  <p>WearTogether</p>
+                </div>
+              </div>
             <div class = "row">
                 <div class ="col-2">
                     <div class="form-container">
@@ -128,7 +139,7 @@
                     }
                     const userData = await response.json();
                     console.log(userData);
-                    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+                    window.location.href = "index.html";
                 } catch (err) {
                     document.getElementById("invalid").innerHTML = "Invalid credentials!";
                     console.error("Fetch Error:", err.message);
