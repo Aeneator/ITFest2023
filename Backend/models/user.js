@@ -9,7 +9,7 @@ const userSchema = new Schema({
   points: {
     type: Number,
     required: true,
-    default: 0,
+    default: 100,
   },
   email: {
     type: String,
