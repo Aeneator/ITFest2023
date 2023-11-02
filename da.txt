@@ -1,0 +1,62 @@
+try {
+                    const response = await fetch("http://192.168.0.198:3000/api/users/authenticate", {
+                        method:"POST",
+                        headers:{
+                            "Content-Type": "application/json"
+                        },
+                        body: placeholdersJSON
+                    });
+
+                    const userData = await response.json();
+                    if (!response.ok) {
+                        throw new Error(userData.message);
+                    }
+                   
+                    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley";
+                } catch (err) {
+                    document.getElementById("invalid").innerHTML = err.message;
+                    console.error("Fetch Error:", err.message);
+                }
+            }
+
+try {
+                    const response = await fetch("http://192.168.0.198:3000/api/users/", {
+                        method:"POST",
+                        headers:{
+                            "Content-Type": "application/json"
+                        },
+                        body: placeholdersJSON
+                    });
+
+                    const userData = await response.json();
+                    if (!response.ok) {
+                        throw new Error(userData.message);
+                    }
+                    
+                    login();
+                } catch (err) {
+                    document.getElementById("invalid1").innerHTML = err.message;
+                    console.error("Fetch Error:", err.message);
+                }
+            }
+
+
+const newButton = document.createElement('button');
+        newButton.textContent = 'Buy!';
+        document.body.appendChild(newButton);
+        const buttonSize = "50px"; // Adjust the size as needed
+        newButton.style.width = buttonSize;
+        newButton.style.height = buttonSize;
+        newButton.style.borderRadius = "50%";
+
+        // Add a plus icon using HTML entity
+        newButton.innerHTML = "&#43;"; // HTML entity for the plus symbol
+
+        // Apply styles to the button
+        newButton.style.backgroundColor = "orange";
+        newButton.style.color = "black";
+        newButton.style.border = "none";
+        newButton.style.fontSize = "36px";
+        newButton.addEventListener('click', () => {
+            alert('Sold!');
+        });
