@@ -32,7 +32,7 @@ exports.createUser = async (req, res, next) => {
     await createdUser.save();
 
     const token = jwt.sign(
-      { user: { id: createdUser.id, username, email } },
+      { user: { id: createdUser.id } },
       "super_secret_don't_share",
       {
         expiresIn: "1h",
@@ -41,7 +41,7 @@ exports.createUser = async (req, res, next) => {
 
     res.status(201).json({
       token,
-      user: { id: createdUser.id, username, email },
+      user: { id: createdUser.id, username, email, points: createdUser.points },
     });
   } catch (error) {
     next(error);
@@ -78,19 +78,22 @@ exports.authenticate = async (req, res, next) => {
     await existingUser.save();
 
     const token = jwt.sign(
-      { user: { id: existingUser.id, email } },
+      { user: { id: existingUser.id } },
       "super_secret_don't_share",
       {
         expiresIn: "1h",
       }
     );
 
-    res
-      .status(201)
-      .json({
-        token,
-        user: { id: existingUser.id, username: existingUser.username, email },
-      });
+    res.status(201).json({
+      token,
+      user: {
+        id: existingUser.id,
+        username: existingUser.username,
+        email,
+        points: existingUser.points,
+      },
+    });
   } catch (error) {
     next(error);
   }

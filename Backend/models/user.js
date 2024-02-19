@@ -6,6 +6,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  points: {
+    type: Number,
+    required: true,
+    default: 100,
+  },
   email: {
     type: String,
     unique: true,
