@@ -33,7 +33,7 @@ var selectedValue = selectElement.value;
 selectElement.addEventListener("change", function() {
     var selectedValue = selectElement.value;
     console.log("Selected value: " + selectedValue);
-    fetch(`http://192.168.0.198:3000/api/clothes?category=${selectedValue}`)
+    fetch(`http://192.168.198.240:3000/api/clothes?category=${selectedValue}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

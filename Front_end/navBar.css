@@ -18,6 +18,7 @@
     align-items: center;
   }
   nav {
+    
     flex: 1;
     text-align: right;
   }
